@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.ItemProperties.Server FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="ServerCore/Program.cs">
     <Files>
-      <File FileName="ServerCore/Program.cs" Line="23" Column="31" />
+      <File FileName="ServerCore/Program.cs" Line="13" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,7 +21,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.ServerCore PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/hyobin_mx/_PersonalProject/Server/ServerCore/Program.cs" relfile="ServerCore/Program.cs" line="81" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

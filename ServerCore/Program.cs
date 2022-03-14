@@ -4,30 +4,49 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
+    class SpinLock
+    {
+        volatile int _locked = 0;   // if _locked == 0 : unlocked, if _locked == 1 : locked
+
+        public void Acquire()
+        {
+            while(true) // Allowed to get out of the loop when it was not locked before by another thread and it gets locked this time freshly
+            {
+                int expected = 0;
+                int desired = 1;
+                if(Interlocked.CompareExchange(ref _locked, desired, expected) == expected)
+                    break;
+            }
+        }
+
+        public void Release()
+        {
+            _locked = 0;
+        }
+    }
+
     class Program
     {
-        static volatile int number = 0;
-        static object obj = new object();
+        static int _num = 0;
+        static SpinLock _lock = new SpinLock();
 
         static void Thread_1()
         {
-            for(int i = 0; i < 100000; i++)
+            for(int i = 0; i < 10000; i++)
             {
-                lock(obj)
-                {
-                    number++;
-                }
+                _lock.Acquire();
+                _num++;
+                _lock.Release();
             }
         }
 
         static void Thread_2()
         {
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                lock(obj)
-                {
-                    number--;
-                }
+                _lock.Acquire();
+                _num--;
+                _lock.Release();
             }
         }
 
@@ -41,7 +60,7 @@ namespace ServerCore
 
             Task.WaitAll(task1, task2);
 
-            Console.WriteLine($"number : {number}");
+            Console.WriteLine($"_num : {_num}");
         }
     }
 }
